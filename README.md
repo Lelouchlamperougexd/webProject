@@ -1,267 +1,109 @@
-# SE-2323 Student Management System
+# Student Management System
 
-This is a web application for managing student data, built as part of the SE-2323 final project. It includes features for adding, editing, deleting, and searching student records. The application also supports user authentication, account management, and password reset functionality.
-
----
-
-## Table of Contents
-1. [Features](#features)
-2. [Technologies Used](#technologies-used)
-3. [Setup Instructions](#setup-instructions)
-4. [Deployment](#deployment)
-5. [API Documentation](#api-documentation)
-6. [Advanced Features](#advanced-features)
-7. [Project Structure](#project-structure)
-8. [License](#license)
-9. [Acknowledgments](#acknowledgments)
-
----
+This is a student management system with authentication, where administrators can add, edit, and delete student records.
 
 ## Features
 
-### Student Management
-- Add new students with name, age, and gender.
-- Edit existing student records.
-- Delete students from the database.
-- Search for students by name.
+- User authentication (login/register)
+- Account management (profile, password reset)
+- Student management (CRUD operations)
+- Search functionality
+- Role-based access control
+- Security features (password hashing, account locking)
 
-### User Authentication
-- Register new admin accounts.
-- Login with username and password.
-- Logout functionality.
-- Account lockout after multiple failed login attempts.
+## Tech Stack
 
-### Account Management
-- View account details (username, email).
-- Reset password via email.
-
-### Password Reset
-- Request a password reset link via email.
-- Reset password using a secure token.
-
----
-
-## Technologies Used
-
-- **Backend**: Node.js, Express.js, MongoDB (with Mongoose)
-- **Frontend**: EJS (Embedded JavaScript templates), Bootstrap
-- **Authentication**: bcrypt for password hashing, express-session for session management
-- **Email Service**: Nodemailer for sending password reset emails
-
----
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- EJS (templating)
+- Bootstrap (styling)
+- bcrypt (password hashing)
+- nodemailer (email service)
 
 ## Setup Instructions
 
 ### Prerequisites
-- Node.js and npm installed on your machine.
-- MongoDB database (local or cloud-based).
-- Gmail account for sending password reset emails (or any other SMTP service).
+
+- Node.js (v14 or higher)
+- MongoDB account
 
 ### Installation
-1. **Clone the repository**:
+
+1. Clone the repository:
    ```bash
-   git clone https://github.com/AskhatSBK/WebPageList.git
-   cd WebPageList
+   git clone https://github.com/yourusername/student-management-system.git
+   cd student-management-system
    ```
-2. **Install dependencies**:
+
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. **Set up environment variables**:
-   Create a `.env` file in the root directory and add the following variables:
-   ```env
-   DB_URL=mongodb://localhost:27017/your-database-name
-   EMAIL=your-email@gmail.com
-   EMAIL_PSWRD=your-email-password
-   SESSION_SECRET=your-secret-key
+
+3. Create a `.env` file in the root directory with the following variables:
    ```
-4. **Start the server**:
+   DB_URL=your_mongodb_connection_string
+   SESSION_SECRET=your_secret_key
+   EMAIL=your-email@gmail.com
+   EMAIL_PSWRD=your-app-password
+   NODE_ENV=development
+   ```
+
+4. Start the application:
    ```bash
    npm start
    ```
-5. **Access the application**:
-   Open your browser and navigate to `http://localhost:3000`.
 
----
+5. For development with auto-restart:
+   ```bash
+   npm run dev
+   ```
 
-## Deployment
-
-This project is deployed on Render. You can access the live application here: [Live Application URL]
-
-### Deployment Steps on Render
-1. **Create a Render Account**: Sign up at [Render](https://render.com/).
-2. **Create a New Web Service**: Connect your GitHub repository to Render.
-3. **Set Environment Variables**: Add the required environment variables (`DB_URL`, `EMAIL`, `EMAIL_PSWRD`, `SESSION_SECRET`) in the Render dashboard.
-4. **Deploy**: Render will automatically deploy your application from the connected repository.
-
----
+6. Open your browser and navigate to `http://localhost:3000`
 
 ## API Documentation
 
-### Authentication (Public Endpoints)
+### Authentication Endpoints
 
-#### `POST /register`
-Register a new user.
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|--------------|
+| GET | /login | Display login page | No |
+| POST | /login | Authenticate user | No |
+| GET | /register | Display registration page | No |
+| POST | /register | Create new user | No |
+| GET | /logout | Log out user | Yes |
+| GET | /account | View account details | Yes |
+| GET | /forgot-password | Display forgot password page | No |
+| POST | /forgot-password | Send password reset email | No |
+| GET | /reset-password/:token | Display reset password page | No |
+| POST | /reset-password/:token | Reset password | No |
 
-**Request Body:**
-```json
-{
-  "username": "admin",
-  "password": "password123",
-  "email": "admin@example.com"
-}
-```
-**Response:**
-```json
-{
-  "message": "User registered successfully"
-}
-```
+### Student Management Endpoints
 
-#### `POST /login`
-Authenticate a user and return a session token.
-
-**Request Body:**
-```json
-{
-  "username": "admin",
-  "password": "password123"
-}
-```
-**Response:**
-```json
-{
-  "message": "Login successful",
-  "session": "session-token"
-}
-```
-
-### User Management (Private Endpoints)
-
-#### `GET /account`
-Retrieve the logged-in user's profile.
-
-**Response:**
-```json
-{
-  "username": "admin",
-  "email": "admin@example.com"
-}
-```
-
-#### `PUT /account`
-Update the logged-in user's profile.
-
-**Request Body:**
-```json
-{
-  "email": "new-email@example.com"
-}
-```
-**Response:**
-```json
-{
-  "message": "Profile updated successfully"
-}
-```
-
-### Student Management (Private Endpoints)
-
-#### `POST /add`
-Create a new student.
-
-**Request Body:**
-```json
-{
-  "name": "John Doe",
-  "age": 22,
-  "gender": true
-}
-```
-**Response:**
-```json
-{
-  "message": "Student added successfully"
-}
-```
-
-#### `GET /`
-Retrieve all students.
-
-**Response:**
-```json
-[
-  {
-    "name": "John Doe",
-    "age": 22,
-    "gender": true
-  }
-]
-```
-
-#### `PUT /edit/:id`
-Update a specific student.
-
-**Request Body:**
-```json
-{
-  "name": "Jane Doe",
-  "age": 23,
-  "gender": false
-}
-```
-**Response:**
-```json
-{
-  "message": "Student updated successfully"
-}
-```
-
-#### `DELETE /delete/:id`
-Delete a specific student.
-
-**Response:**
-```json
-{
-  "message": "Student deleted successfully"
-}
-```
-
----
-
-## Advanced Features
-
-- **Role-Based Access Control (RBAC)**: Admins can manage students, while regular users can only view the student list.
-
----
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|--------------|
+| GET | / | View all students / Search | No |
+| POST | / | Search students | No |
+| GET | /add | Display add student form | Yes |
+| POST | /add | Create new student | Yes |
+| GET | /edit/:id | Display edit student form | Yes |
+| POST | /edit/:id | Update student | Yes |
+| GET | /delete/:id | Delete student | Yes |
 
 ## Project Structure
 
-```
-server.js - Main server file
-views/ - Contains EJS templates
-  index.ejs - Home page with student list
-  add.ejs - Form for adding new students
-  edit.ejs - Form for editing student records
-  login.ejs - Login page
-  register.ejs - Registration page
-  forgot-password.ejs - Forgot password page
-  reset-password.ejs - Reset password page
-  account.ejs - Account management page
-public/ - Static files (CSS, JS, etc.)
-```
+The application follows a modular structure:
 
----
+- `app.js`: Main application file
+- `config/`: Configuration files
+- `controllers/`: Route handlers
+- `middleware/`: Custom middleware functions
+- `models/`: Database models
+- `routes/`: Route definitions
+- `views/`: EJS templates
 
-## License
+## Deployment
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
----
-
-## Acknowledgments
-
-- Bootstrap for styling.
-- Nodemailer for email functionality.
-- Mongoose for MongoDB object modeling.
-
+This application is deployed on Render. You can access it at:
+https://goruplist.onrender.com

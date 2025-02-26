@@ -1,5 +1,5 @@
 {
-  "name": "assigment4",
+  "name": "web",
   "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
@@ -158,5 +158,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "This is a web application for managing student data, built as part of the SE-2323 final project. It includes features for adding, editing, deleting, and searching student records. The application also supports user authentication, account management, and password reset functionality.",
+  "devDependencies": {}
 }

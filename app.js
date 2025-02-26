@@ -42,6 +42,28 @@ app.set('view engine', 'ejs');
 app.use('/', authRoutes);
 app.use('/', studentRoutes);
 
+app.use((req, res, next) => {
+  res.status(404).render('error', { 
+    error: 'Page not found',
+    status: 404,
+    message: 'The page you are looking for does not exist'
+  });
+});
+
+// Replace your existing error handler with this more detailed one
+app.use((err, req, res, next) => {
+  console.error('Error details:', err);
+  
+  // Default to 500 server error, but use err.status if available
+  const statusCode = err.status || 500;
+  
+  res.status(statusCode).render('error', {
+    error: err.message || 'Something went wrong!',
+    status: statusCode,
+    stack: process.env.NODE_ENV === 'development' ? err.stack : ''
+  });
+});
+
 // Error handler middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
