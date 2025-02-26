@@ -202,14 +202,14 @@ student-management-system/
 ## 🌐 Deployment
 
 This application is deployed on Render. You can access the live demo at:
-https://goruplist.onrender.com
+https://webproject-ljiu.onrender.com
 
 ### Deployment Steps
 
 1. Create a Render account
 2. Connect your GitHub repository
 3. Configure environment variables
-4. Set the build command to `npm install`
+4. Set the build command to `npm install (all needed libraries)`
 5. Set the start command to `node app.js`
 
 ## 🤝 Contributing
