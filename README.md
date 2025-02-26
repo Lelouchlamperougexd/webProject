@@ -52,8 +52,8 @@ Before you begin, ensure you have the following installed:
 ### Step 1: Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/student-management-system.git
-cd student-management-system
+git clone https://github.com/Lelouchlamperougexd/webProject.git
+cd webProject
 ```
 
 ### Step 2: Install dependencies
@@ -88,7 +88,7 @@ PORT=3000
 
 For production:
 ```bash
-npm start
+node app.js
 ```
 
 For development (with auto-restart):
@@ -225,9 +225,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 📧 Contact
-
-Your Name - your.email@example.com
-
-Project Link: [https://github.com/yourusername/student-management-system](https://github.com/yourusername/student-management-system)
