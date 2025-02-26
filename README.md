@@ -32,8 +32,8 @@ This is a student management system with authentication, where administrators ca
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/student-management-system.git
-   cd student-management-system
+   git clone https://github.com/Lelouchlamperougexd/webProject.git
+   cd webProject
    ```
 
 2. Install dependencies:
